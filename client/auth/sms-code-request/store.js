@@ -20,7 +20,7 @@ function handleSMSResponse( payload ) {
 	if ( data && data.body && data.body.error === 'needs_2fa' ) return Object.assign( {}, initialState, { requested: true } );
 
 	const errorMessage = data && data.body && data.body.error_description
-												? data.body.error_descripton : error.message;
+												? data.body.error_description : error.message;
 
 	// assign the error message from the response body, otherwise take it from the error object
 	return Object.assign( {}, initialState, {

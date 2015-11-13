@@ -6,7 +6,7 @@ import React from 'react'
 /**
  * Internal Dependencies
  */
-import { requestCode } from './actions'
+import { requestCode, resetCode } from './actions'
 import Store from './store'
 import Notice from 'notices/simple-notice'
 
@@ -34,10 +34,10 @@ export default React.createClass( {
 	},
 
 	render: function() {
-		const { isRequesting, requested } = this.state;
+		const { isRequesting, requested, errorLevel, errorMessage } = this.state;
 
 		var status = 'is-info';
-
+		var showDismiss = false;
 		var message = (
 			<a href="#" onClick={ this.requestSMSCode }>{ this.translate( 'Send code via text message.' ) }</a>
 		);
@@ -51,8 +51,14 @@ export default React.createClass( {
 			message = this.translate( 'Code sent.' );
 		}
 
+		if ( errorLevel !== false ) {
+			status = errorLevel;
+			message = errorMessage;
+			showDismiss = true;
+		}
+
 		return (
-			<Notice showDismiss={ false } status={ status } >
+			<Notice showDismiss={ showDismiss } status={ status } onClick={ resetCode } >
 				{ message }
 			</Notice>
 		);
