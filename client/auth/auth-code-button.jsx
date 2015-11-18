@@ -6,8 +6,8 @@ import React from 'react'
 /**
  * Internal Dependencies
  */
-import { requestCode, resetCode } from './actions'
-import Store from './store'
+import { requestCode, resetCode } from 'lib/auth-code-request-store/actions'
+import Store from 'lib/auth-code-request-store'
 import Notice from 'notices/simple-notice'
 
 export default React.createClass( {
