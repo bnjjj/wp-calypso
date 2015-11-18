@@ -5,9 +5,9 @@ import keyMirror from 'react/lib/keyMirror';
 
 export const actions = keyMirror( {
 	// Sending a request for an SMS auth code
-	SMS_REQUEST: null,
+	AUTH_CODE_REQUEST: null,
 	// Request for an SMS auth code has completed
-	RECEIVE_SMS_REQUEST: null,
+	RECEIVE_AUTH_CODE_REQUEST: null,
 	// Reset the SMS state
-	SMS_RESET: null
+	RESET_AUTH_CODE_REQUEST: null
 } );

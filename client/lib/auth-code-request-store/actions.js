@@ -6,17 +6,20 @@ import { actions } from './constants'
 var timeout;
 
 export function resetCode() {
+	timeout = null;
 	Dispatcher.handleViewAction( {
-		type: actions.SMS_RESET
+		type: actions.RESET_AUTH_CODE_REQUEST
 	} );
 }
 
 export function requestCode( username, password ) {
-	Dispatcher.handleViewAction( {
-		type: actions.SMS_REQUEST
-	} );
+	if ( timeout ) {
+		return;
+	}
 
-	clearTimeout( timeout );
+	Dispatcher.handleViewAction( {
+		type: actions.AUTH_CODE_REQUEST
+	} );
 
 	request.post( '/sms' )
 		.send( { username, password } )
@@ -24,7 +27,7 @@ export function requestCode( username, password ) {
 			timeout = setTimeout( resetCode, 1000 * 30 );
 
 			Dispatcher.handleServerAction( {
-				type: actions.RECEIVE_SMS_REQUEST,
+				type: actions.RECEIVE_AUTH_CODE_REQUEST,
 				data,
 				error
 			} );
